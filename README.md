@@ -1,6 +1,8 @@
 ## About React-Native Contacts Application
 
-This project is well thought-out and designed react-native application built with expo framework
+This project is well thought-out and designed react-native application built with expo framework.
+The app is a contacts manager where a user can Register & Login
+to view and manage his contacts.
 We explore many popular libraries and framework in this application.
 Some of the tools used includes:
 
