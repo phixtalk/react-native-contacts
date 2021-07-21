@@ -5,7 +5,7 @@ import AuthNavigator from "./AuthNavigator";
 import DrawerNavigator from "./DrawerNavigation";
 
 const AppNavController = () => {
-  const isLoggedIn = false;
+  const isLoggedIn = true;
 
   return (
     <NavigationContainer>
