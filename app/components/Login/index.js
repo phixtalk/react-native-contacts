@@ -3,7 +3,6 @@ import {
   View,
   Text,
   SafeAreaView,
-  StyleSheet,
   Image,
   TouchableOpacity,
 } from "react-native";
