@@ -24,3 +24,5 @@ Some of the tools used includes:
 - Responsive Layouts
 
 References: Special thanks to Cryce Truly
+
+The folder structure for screens and components is designed as is, so that the UI's don't care where the data comes from, in case we wish to swap the state management library to another one(context-api to redux), the UI won't be affected
