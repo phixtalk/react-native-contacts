@@ -13,10 +13,7 @@ import CustomButton from "../../components/common/CustomButton";
 import styles from "./styles";
 import { LOGIN } from "../../constants/routeNames";
 
-const Index = () => {
-  const [username, onChangeUsername] = React.useState("");
-  const [password, onChangePassword] = React.useState("");
-
+const RegisterComponent = ({ form, onSubmit, onChange, errors }) => {
   const { navigate } = useNavigation();
 
   return (
@@ -29,37 +26,52 @@ const Index = () => {
       />
       <View>
         <Text style={styles.title}>Welcome to RNContacts</Text>
-        <Text style={styles.subTitle}>Please login here</Text>
+        <Text style={styles.subTitle}>Create a free account</Text>
         <View style={styles.form}>
           <Input
             label={"Username"}
-            value={username}
             placeholder="Enter your username"
+            onChangeText={(value) => {
+              onChange({ name: "userName", value });
+            }}
+            error={errors.userName}
           />
           <Input
             label={"First Name"}
-            value={username}
             placeholder="Enter your firstname"
+            onChangeText={(value) => {
+              onChange({ name: "firstName", value });
+            }}
+            error={errors.firstName}
           />
           <Input
             label={"Last Name"}
-            value={username}
             placeholder="Enter your lastname"
+            onChangeText={(value) => {
+              onChange({ name: "lastName", value });
+            }}
+            error={errors.lastName}
           />
           <Input
             label={"Email"}
-            value={username}
             placeholder="Enter your email"
+            onChangeText={(value) => {
+              onChange({ name: "email", value });
+            }}
+            error={errors.email}
           />
           <Input
             label={"Password"}
-            value={password}
             placeholder="Enter your password"
             icon={<Text>SHOW</Text>}
             iconPosition="right"
             secureTextEntry="true"
+            onChangeText={(value) => {
+              onChange({ name: "password", value });
+            }}
+            error={errors.password}
           />
-          <CustomButton primary title={"Submit"} />
+          <CustomButton onPress={onSubmit} primary title={"Submit"} />
 
           <View style={styles.createSection}>
             <Text style={styles.infoText}>Already have an account?</Text>
@@ -77,4 +89,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default RegisterComponent;
