@@ -1,16 +1,34 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useState, useEffect, useCallback } from "react";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
+
 import RegisterComponent from "../../components/Register";
-import axiosInstance from "../../helpers/axiosInterceptor";
+import register, { clearAuthState } from "../../context/actions/auth/register";
+import { GlobalContext } from "../../context/Provider";
+import { LOGIN } from "../../constants/routeNames";
 
 const Register = () => {
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
+  const { navigate } = useNavigation();
+
+  const {
+    authDispatch,
+    authState: { error, loading, data },
+  } = useContext(GlobalContext);
 
   useEffect(() => {
-    axiosInstance.get("/contacts").catch((err) => {
-      console.log("err", err.response);
-    });
-  }, []);
+    if (data) {
+      navigate(LOGIN);
+    }
+  }, [data]);
+
+  useFocusEffect(
+    useCallback(() => {
+      if (data || error) {
+        clearAuthState()(authDispatch);
+      }
+    }, [data, error])
+  );
 
   const onChange = ({ name, value }) => {
     setForm({ ...form, [name]: value });
@@ -42,7 +60,6 @@ const Register = () => {
   };
 
   const onSubmit = () => {
-    //console.log("form :>>", form);
     //validations
 
     if (!form.userName) {
@@ -70,6 +87,14 @@ const Register = () => {
         return { ...prevState, password: "Please add a password" };
       });
     }
+
+    if (
+      Object.values(form).length === 5 &&
+      Object.values(form).every((item) => item.trim().length > 0) &&
+      Object.values(errors).every((item) => !item)
+    ) {
+      register(form)(authDispatch);
+    }
   };
 
   return (
@@ -78,6 +103,8 @@ const Register = () => {
       form={form}
       errors={errors}
       onChange={onChange}
+      error={error}
+      loading={loading}
     />
   );
 };

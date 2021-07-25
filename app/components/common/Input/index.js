@@ -12,7 +12,6 @@ const Input = ({
   icon,
   iconPosition,
   error,
-  secureTextEntry,
   ...props
 }) => {
   const [focused, setFocused] = useState(false);
@@ -54,7 +53,6 @@ const Input = ({
           onBlur={() => {
             setFocused(false);
           }}
-          secureTextEntry={secureTextEntry}
           {...props}
         />
       </View>

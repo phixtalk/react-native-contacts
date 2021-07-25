@@ -43,7 +43,7 @@ const Index = () => {
               placeholder="Enter your password"
               icon={<Text>HIDE</Text>}
               iconPosition="right"
-              secureTextEntry="true"
+              secureTextEntry={true}
             />
             <CustomButton primary title={"Submit"} />
 
