@@ -12,6 +12,7 @@ import Input from "../../components/common/Input";
 import CustomButton from "../../components/common/CustomButton";
 import styles from "./styles";
 import { REGISTER } from "../../constants/routeNames";
+import Message from "../common/Message";
 
 const Index = () => {
   const [username, onChangeUsername] = React.useState("");
@@ -31,6 +32,18 @@ const Index = () => {
         <View>
           <Text style={styles.title}>Welcome to RNContacts</Text>
           <Text style={styles.subTitle}>Please login here</Text>
+
+          <Message
+            retry
+            retryFn={() => {}}
+            primary
+            onDismiss={() => {}}
+            message={"invalid credentials"}
+          />
+          <Message danger message={"invalid credentials"} />
+          <Message info message={"invalid credentials"} />
+          <Message success message={"invalid credentials"} />
+
           <View style={styles.form}>
             <Input
               label={"Username"}
