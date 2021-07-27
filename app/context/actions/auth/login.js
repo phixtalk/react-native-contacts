@@ -1,46 +1,33 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
-  CLEAR_AUTH_STATE,
-  REGISTER_FAIL,
-  REGISTER_LOADING,
-  REGISTER_SUCCESS,
+  LOGIN_FAIL,
+  LOGIN_LOADING,
+  LOGIN_SUCCESS,
 } from "../../../constants/actionTypes";
 import axiosInstance from "../../../helpers/axiosInterceptor";
 
-export const clearAuthState = () => (dispatch) => {
-  dispatch({
-    type: CLEAR_AUTH_STATE,
-  });
-};
-
-export default ({
-    email,
-    password,
-    userName: username,
-    firstName: first_name,
-    lastName: last_name,
-  }) =>
+export default ({ password, userName: username }) =>
   (dispatch) => {
     dispatch({
-      type: REGISTER_LOADING,
+      type: LOGIN_LOADING,
     });
 
     axiosInstance
-      .post("auth/register", {
-        email,
+      .post("auth/login", {
         password,
         username,
-        first_name,
-        last_name,
       })
       .then((res) => {
+        AsyncStorage.setItem("token", res.data.token);
+        AsyncStorage.setItem("user", JSON.stringify(res.data.user));
         dispatch({
-          type: REGISTER_SUCCESS,
+          type: LOGIN_SUCCESS,
           payload: res.data,
         });
       })
       .catch((err) => {
         dispatch({
-          type: REGISTER_FAIL,
+          type: LOGIN_FAIL,
           payload: err.response
             ? err.response.data
             : { error: "Something went wrong" },

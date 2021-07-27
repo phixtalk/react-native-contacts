@@ -14,10 +14,7 @@ import styles from "./styles";
 import { REGISTER } from "../../constants/routeNames";
 import Message from "../common/Message";
 
-const Index = () => {
-  const [username, onChangeUsername] = React.useState("");
-  const [password, onChangePassword] = React.useState("");
-
+const Index = ({ onSubmit, onChange, error, loading }) => {
   const { navigate } = useNavigation();
 
   return (
@@ -33,32 +30,40 @@ const Index = () => {
           <Text style={styles.title}>Welcome to RNContacts</Text>
           <Text style={styles.subTitle}>Please login here</Text>
 
-          <Message
-            retry
-            retryFn={() => {}}
-            primary
-            onDismiss={() => {}}
-            message={"invalid credentials"}
-          />
-          <Message danger message={"invalid credentials"} />
-          <Message info message={"invalid credentials"} />
-          <Message success message={"invalid credentials"} />
-
           <View style={styles.form}>
+            {/* {remote error: error from server response} */}
+            {error && !error.error && (
+              <Message danger message="invalid credentials" />
+            )}
+
+            {/* {local error: unable to connect to the server} */}
+            {error?.error && <Message danger message={error?.error} />}
+
             <Input
               label={"Username"}
-              value={username}
               placeholder="Enter your username"
+              onChangeText={(value) => {
+                onChange({ name: "userName", value });
+              }}
             />
+
             <Input
               label={"Password"}
-              value={password}
               placeholder="Enter your password"
-              icon={<Text>HIDE</Text>}
+              icon={<Text>SHOW</Text>}
               iconPosition="right"
               secureTextEntry={true}
+              onChangeText={(value) => {
+                onChange({ name: "password", value });
+              }}
             />
-            <CustomButton primary title={"Submit"} />
+            <CustomButton
+              loading={loading}
+              disabled={loading}
+              onPress={onSubmit}
+              primary
+              title={"Submit"}
+            />
 
             <View style={styles.createSection}>
               <Text style={styles.infoText}>Need a new account?</Text>

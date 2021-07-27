@@ -12,6 +12,7 @@ import Input from "../../components/common/Input";
 import CustomButton from "../../components/common/CustomButton";
 import styles from "./styles";
 import { LOGIN } from "../../constants/routeNames";
+import Message from "../common/Message";
 
 const RegisterComponent = ({
   form,
@@ -35,7 +36,9 @@ const RegisterComponent = ({
         <Text style={styles.title}>Welcome to RNContacts</Text>
         <Text style={styles.subTitle}>Create a free account</Text>
         <View style={styles.form}>
-          {error?.error && <Text>{error.error}</Text>}
+          {error?.error && (
+            <Message danger onDismiss={() => {}} message={error?.error} />
+          )}
           <Input
             label={"Username"}
             placeholder="Enter your username"

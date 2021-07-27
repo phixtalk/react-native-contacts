@@ -24,9 +24,14 @@ const Register = () => {
 
   useFocusEffect(
     useCallback(() => {
-      if (data || error) {
-        clearAuthState()(authDispatch);
-      }
+      //here i noticed that the tap on register link only took
+      //effect on second tap, this is because the the effect that clears the auth state runs when the screen first comes into focus
+      //to fix this, we should run it only when the screen leaves focus, by using a cleanup function, because the code in the clean up function is called when the screen goes out of focus
+      return () => {
+        if (data || error) {
+          clearAuthState()(authDispatch);
+        }
+      };
     }, [data, error])
   );
 
