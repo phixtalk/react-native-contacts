@@ -30,7 +30,7 @@ export default ({ password, userName: username }) =>
           type: LOGIN_FAIL,
           payload: err.response
             ? err.response.data
-            : { error: "Something went wrong" },
+            : { error: "Something went wrong. Check your network" },
         });
       });
   };

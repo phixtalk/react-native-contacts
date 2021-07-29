@@ -4,13 +4,31 @@ import {
   SafeAreaView,
   Text,
   TouchableOpacity,
+  Alert,
   View,
 } from "react-native";
 import Container from "../../components/common/Container";
 import { SETTINGS } from "../../constants/routeNames";
+import logoutUser from "../../context/actions/auth/logoutUser";
 import styles from "./styles";
 
-const SideMenu = ({ navigation }) => {
+const SideMenu = ({ navigation, authDispatch }) => {
+  const handleLogout = () => {
+    navigation.toggleDrawer();
+
+    Alert.alert("Logout!", "Are you sure you want to logout?", [
+      {
+        text: "Cancel",
+        onPress: () => {},
+      },
+      {
+        text: "Ok",
+        onPress: () => {
+          logoutUser()(authDispatch);
+        },
+      },
+    ]);
+  };
   const menuItems = [
     {
       icon: <Text>T</Text>,
@@ -19,7 +37,7 @@ const SideMenu = ({ navigation }) => {
         navigation.navigate(SETTINGS);
       },
     },
-    { icon: <Text>T</Text>, name: "Logout" },
+    { icon: <Text>T</Text>, name: "Logout", onPress: handleLogout },
   ];
 
   return (
