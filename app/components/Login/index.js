@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -16,6 +16,7 @@ import Message from "../common/Message";
 
 const Index = ({ onSubmit, onChange, error, loading }) => {
   const { navigate } = useNavigation();
+  const [isSecureEntry, setIsSecureEntry] = useState(true);
 
   return (
     <Container>
@@ -50,9 +51,15 @@ const Index = ({ onSubmit, onChange, error, loading }) => {
             <Input
               label={"Password"}
               placeholder="Enter your password"
-              icon={<Text>SHOW</Text>}
+              icon={
+                <TouchableOpacity
+                  onPress={() => setIsSecureEntry((prev) => !prev)}
+                >
+                  <Text>{isSecureEntry ? "Show" : "Hide"}</Text>
+                </TouchableOpacity>
+              }
+              secureTextEntry={isSecureEntry}
               iconPosition="right"
-              secureTextEntry={true}
               onChangeText={(value) => {
                 onChange({ name: "password", value });
               }}
