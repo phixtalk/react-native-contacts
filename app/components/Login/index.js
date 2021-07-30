@@ -4,6 +4,7 @@ import {
   Text,
   SafeAreaView,
   Image,
+  form,
   TouchableOpacity,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
@@ -14,7 +15,14 @@ import styles from "./styles";
 import { REGISTER } from "../../constants/routeNames";
 import Message from "../common/Message";
 
-const Index = ({ onSubmit, onChange, error, loading }) => {
+const LoginComponent = ({
+  onSubmit,
+  onChange,
+  error,
+  loading,
+  form,
+  justSignedUp,
+}) => {
   const { navigate } = useNavigation();
   const [isSecureEntry, setIsSecureEntry] = useState(true);
 
@@ -32,6 +40,11 @@ const Index = ({ onSubmit, onChange, error, loading }) => {
           <Text style={styles.subTitle}>Please login here</Text>
 
           <View style={styles.form}>
+            {/* {welcome message after successful signup} */}
+            {justSignedUp && (
+              <Message success message="Account created successfully" />
+            )}
+
             {/* {remote error: error from server response} */}
             {error && !error.error && (
               <Message danger message="invalid credentials" />
@@ -43,6 +56,7 @@ const Index = ({ onSubmit, onChange, error, loading }) => {
             <Input
               label={"Username"}
               placeholder="Enter your username"
+              value={form.userName || ""}
               onChangeText={(value) => {
                 onChange({ name: "userName", value });
               }}
@@ -89,4 +103,4 @@ const Index = ({ onSubmit, onChange, error, loading }) => {
   );
 };
 
-export default Index;
+export default LoginComponent;

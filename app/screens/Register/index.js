@@ -16,12 +16,6 @@ const Register = () => {
     authState: { error, loading, data },
   } = useContext(GlobalContext);
 
-  useEffect(() => {
-    if (data) {
-      navigate(LOGIN);
-    }
-  }, [data]);
-
   useFocusEffect(
     useCallback(() => {
       //here i noticed that the tap on register link only took
@@ -98,7 +92,9 @@ const Register = () => {
       Object.values(form).every((item) => item.trim().length > 0) &&
       Object.values(errors).every((item) => !item)
     ) {
-      register(form)(authDispatch);
+      register(form)(authDispatch)((response) => {
+        navigate(LOGIN, { data: response }); //we can get this data pass from getROute in login screen
+      });
     }
   };
 
