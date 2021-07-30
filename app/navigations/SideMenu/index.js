@@ -7,6 +7,9 @@ import {
   Alert,
   View,
 } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
+
 import Container from "../../components/common/Container";
 import { SETTINGS } from "../../constants/routeNames";
 import logoutUser from "../../context/actions/auth/logoutUser";
@@ -31,13 +34,17 @@ const SideMenu = ({ navigation, authDispatch }) => {
   };
   const menuItems = [
     {
-      icon: <Text>T</Text>,
+      icon: <Ionicons name="md-settings" size={17} />,
       name: "Settings",
       onPress: () => {
         navigation.navigate(SETTINGS);
       },
     },
-    { icon: <Text>T</Text>, name: "Logout", onPress: handleLogout },
+    {
+      icon: <MaterialIcons name="logout" size={17} color="black" />,
+      name: "Logout",
+      onPress: handleLogout,
+    },
   ];
 
   return (
