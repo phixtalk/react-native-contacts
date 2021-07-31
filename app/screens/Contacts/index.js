@@ -1,10 +1,8 @@
-import { useNavigation, Icon } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import React, { useEffect } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import Container from "../../components/common/Container";
-import { Ionicons } from "@expo/vector-icons";
-
-import colors from "../../../assets/theme/colors";
+import Icon from "../../components/common/Icon";
 
 const Contacts = () => {
   const { setOptions, toggleDrawer } = useNavigation();
@@ -13,9 +11,10 @@ const Contacts = () => {
     setOptions({
       headerLeft: () => (
         <TouchableOpacity onPress={() => toggleDrawer()}>
-          <Ionicons
+          <Icon
+            type="material"
             style={{ padding: 5, color: "#000" }}
-            name="md-menu"
+            name="menu"
             size={32}
           />
         </TouchableOpacity>
